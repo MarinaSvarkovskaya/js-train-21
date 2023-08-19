@@ -41,7 +41,7 @@ class Musician {
     // присвоєння вхідного значення instrument до приватного поля #instrument
     this.#instrument = instrument;
     // збільшення значення статичного поля на 1
-    count += 1;
+    this.count += 1;
   }
 
   get name() {
@@ -213,7 +213,7 @@ class Bassist extends Musician {
 // Другий аргумент - це ім'я властивості, яку ми хочемо додати. У цьому випадку це 'band'.
 // Третій аргумент - це об'єкт, який описує властивість. У цьому випадку ми хочемо додати сетер,
 // тому ми вказуємо функцію, яка буде викликатися при спробі встановити властивість 'band'.  this.band = newBand
-Object.defineProperty(Musician.prototype, band, {
+Object.defineProperty(Musician.prototype, `band`, {
   set: function (band) {
     this.band = band;
   },
@@ -238,7 +238,7 @@ class Band {
    */
   constructor(name, members) {
     this.#name = name;
-    this.#members = members.applay(Musician, []);
+    this.#members = members.map((member) => new Musician(member));
   }
   // Створюємо getter для #name, що повертає приватну властивість #name
   get name() {
@@ -267,7 +267,7 @@ class Band {
   // Створюємо метод playMusic(), за допомогою forEach перебираємо масив і викликаємо метод play() для кожного учасника гурту
   playMusic = () => {
     this.#members.forEach((member) => {
-      play(member);
+      this.play();
     });
   };
 }
@@ -445,7 +445,7 @@ class LeadSinger extends Vocalist {
  * | name        | "John"           |
  * | instrument  | "Guitarist"      |
  */
-let musician = Musician("John", "Guitarist");
+let musician = new Musician("John", "Guitarist");
 /*
  * Створення guitarist екземпляра класу Guitarist
  * ---------------------------------------------------
@@ -455,7 +455,7 @@ let musician = Musician("John", "Guitarist");
  * | instrument  | "гітара"          |
  * | band        | "Led Zeppelin"    |
  */
-let guitarist = Guitarist("Jimmy Page", "гітара", "Led Zeppelin");
+let guitarist = new Guitarist("Jimmy Page", "гітара", "Led Zeppelin");
 /*
  * Створення bassist екземпляра класу Bassist
  * ---------------------------------------------------
@@ -466,7 +466,7 @@ let guitarist = Guitarist("Jimmy Page", "гітара", "Led Zeppelin");
  * | band        | "The Beatles"    |
  */
 
-let bassist = Bassist("Paul McCartney", "бас-гітара", "The Beatles");
+let bassist = new Bassist("Paul McCartney", "бас-гітара", "The Beatles");
 
 // Створення band екземпляру класу Band
 /*
@@ -477,7 +477,7 @@ let bassist = Bassist("Paul McCartney", "бас-гітара", "The Beatles");
  * | name        | "The Beatles"    |
  * | members     | [bassist]       |
  */
-let band = Band("The Beatles", [bassist]);
+let band = new Band("The Beatles", [bassist]);
 // Додаємо guitarist до band за допомогою addMember
 
 /*
@@ -488,7 +488,7 @@ let band = Band("The Beatles", [bassist]);
  * | name        | "Freddie Mercury" |
  * | band        | "Queen"           |
  */
-let vocalist = Vocalist("Freddie Mercury", "Queen");
+let vocalist = new Vocalist("Freddie Mercury", "Queen");
 /*
  * Створення songwriter екземпляра класу SongWriter
  * -------------------------------------
@@ -496,7 +496,7 @@ let vocalist = Vocalist("Freddie Mercury", "Queen");
  * |-------------|------------------|
  * | songs       | ["Yesterday","Hey Jude","Let It Be",]|
  */
-let songwriter = SongWriter(["Yesterday", "Hey Jude", "Let It Be"]);
+let songwriter = new SongWriter(["Yesterday", "Hey Jude", "Let It Be"]);
 
 // Створення performance екземпляра класу Performance
 /*
@@ -508,7 +508,7 @@ let songwriter = SongWriter(["Yesterday", "Hey Jude", "Let It Be"]);
  * | date        | new Date('2023-08-01')               |
  */
 
-let performance = Performance(band, "Liverpool", new Date("2023-08-01"));
+let performance = new Performance(band, "Liverpool", new Date("2023-08-01"));
 
 // використання Object.assign() для успадкування властивостей songwriter для LeadSinger.prototype
 
@@ -522,7 +522,7 @@ let performance = Performance(band, "Liverpool", new Date("2023-08-01"));
  * | date        | new Date("1994-07-06") |
  * | ticketPrice | 100              |
  */
-let concert = Concert(band, "BBC studios", new Date("1994-07-06"), 100);
+let concert = new Concert(band, "BBC studios", new Date("1994-07-06"), 100);
 
 /*
  * Створення leadsinger екземпляра класу LeadSinger
@@ -533,7 +533,7 @@ let concert = Concert(band, "BBC studios", new Date("1994-07-06"), 100);
  * | band        | "The Rolling Stones" |
  * | songs       | ["Yesterday","Hey Jude","Let It Be",]|
  */
-let leadsinger = LeadSinger("Mick Jagger", "The Rolling Stones", [
+let leadsinger = new LeadSinger("Mick Jagger", "The Rolling Stones", [
   "Yesterday",
   "Hey Jude",
   "Let It Be",
