@@ -56,16 +56,16 @@ class Musician {
     return this.#instrument;
   }
 
-  set name(newName) {
+  set name(name) {
     // сетер для приватного поля #name
     // присвоює нове значення приватному полю #name
-    this.#name = newName;
+    this.#name = name;
   }
 
-  set instrument(newInstrument) {
+  set instrument(instrument) {
     // сетер для приватного поля #instrument
     // присвоює нове значення приватному полю #instrument
-    this.#instrument = newInstrument;
+    this.#instrument = instrument;
   }
 
   play() {
@@ -116,7 +116,7 @@ class Guitarist extends Musician {
     // виклик конструктора батьківського класу super з двома параметрами name, instrument
     super(name, instrument);
     // присвоєння вхідного значення band до приватного поля #band
-    band = this.#band;
+    this.#band = band;
   }
   // гетер для приватного поля #band
   // повертає значення приватного поля #band
@@ -126,8 +126,8 @@ class Guitarist extends Musician {
 
   // сетер для приватного поля #band
   // присвоює нове значення приватному полю #band
-  set band(newName) {
-    this.#band = newName;
+  set band(band) {
+    this.#band = band;
   }
   // метод joinBand, що змінює значення #band, this.#band = band
   joinBand = () => {
@@ -183,7 +183,7 @@ class Bassist extends Musician {
     // виклик конструктора батьківського класу super з двома параметрами name, instrument
     super(name, instrument);
     // присвоєння вхідного значення band до приватного поля #band
-    band = this.#band;
+    this.#band = band;
   }
   // гетер для приватного поля #band
   // повертає значення приватного поля #band
@@ -192,8 +192,8 @@ class Bassist extends Musician {
   }
   // сетер для приватного поля #band
   // присвоює нове значення приватному полю #band
-  set band(newName) {
-    this.#band = newName;
+  set band(band) {
+    this.#band = band;
   }
   // метод joinBand, що змінює значення #band,this.#band = band
   joinBand = () => {
@@ -338,7 +338,7 @@ class Concert extends Performance {
   }
   // Створюємо setter для #ticketPrice, що дозволяє змінити приватну властивість #ticketPrice
   set ticketPrice(ticketPrice) {
-    ticketPrice = this.#ticketPrice;
+    this.#ticketPrice = ticketPrice;
   }
   // Визначаємо метод info(), що виводить рядок в консоль `Гурт ${super.band.name} виступить в ${super.location} ${super.date.toLocaleDateString()}, ціна квитка ${this.#ticketPrice}`
   info = () => {
@@ -363,7 +363,10 @@ class Vocalist {
   #name;
   #band;
   // Створюємо конструктор з двома вхідними параметрами: #name та #band
-  constructor(name, band) {}
+  constructor(name, band) {
+    this.#name = name;
+    this.band = band;
+  }
   // Створюємо getter для #name, що повертає приватну властивість #name
   get name() {
     return this.#name;
@@ -398,7 +401,9 @@ class SongWriter {
   // Об'являємо приватні поля #songs;
   #songs = [];
   // Створюємо конструктор з одним вхідним параметром: #songs
-  constructor(songs) {}
+  constructor(songs) {
+    this.#songs = songs;
+  }
   // Створюємо getter для #songs, що повертає приватну властивість #songs
   get songs() {
     return this.#songs;
